@@ -1,0 +1,35 @@
+.ins-notices {
+	width: 100%;
+}
+.single-notice {
+	width: 100%;
+	border: 1px solid #ccc;
+	padding: 5px;
+	margin: 5px;
+	overflow: hidden;
+}
+.notice-title {
+	width: 80%;
+	float: left;
+}
+.download-btn {
+	width: 20%;
+	overflow: hidden;
+	text-align: center;
+}
+.download-btn a {
+	font-weight: bold;
+}
+
+@media all and (max-width: 380px){
+	.notice-title {
+		width: 100%;
+		float: inherit;
+		text-align: center;
+	}
+	.download-btn {
+		width: 100%;
+		overflow: hidden;
+		text-align: center;
+	}
+}
