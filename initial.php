@@ -1,13 +1,13 @@
 <?php
 /*
 	Plugin Name:       Institute Notice
-	Plugin URI:        https://wpcoderpro.com/plugins/institute-notice/
+	Plugin URI:        https://www.wpcoderpro.com/plugins/institute-notice/
 	Description:       Institute Notice is the most reliable for showing institute notice in any place using shortcode.
 	Version:           1.0.0
-	Requires at least: 5.2
+	Requires at least: 5.5.3
 	Requires PHP:      7.1.28
 	Author:            Md Dalwar
-	Author URI:        https://www.wpcoderpro.com
+	Author URI:        https://www.learnwptech.com
 	License:           GPL v2 or later
 	License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 	Text Domain:       ins_notice
@@ -24,7 +24,7 @@
 	GNU General Public License for more details.
 	 
 	You should have received a copy of the GNU General Public License
-	along with Dinat Social Feed. If not, see https://www.gnu.org/licenses/gpl-2.0.html
+	along with Institute. If not, see https://www.gnu.org/licenses/gpl-2.0.html
  */
 	
 	
@@ -74,7 +74,6 @@
 						</div>
 						<?php endwhile; ?>
 					</div>
-
 				<?php
 				return ob_get_clean();
 			}
@@ -103,13 +102,13 @@
 				$btn_text = get_post_meta(get_the_id(), '_download_btn_text_', true);
 				$notice_file_url = get_post_meta(get_the_id(), '_notice_file_link_', true);
 				?>
-
 					<p>
-						<label for="" style="display: block;">Download Button Text</label>
-						<input type="text" class="download_btn_text" name="download_btn_text" value="<?php if(!empty($btn_text)){echo $btn_text;}else{echo 'Download';} ?>">
+						<label for="download_btn_text" style="display: block;">Download Button Text</label>
+						<input type="text" id="download_btn_text" class="download_btn_text widefat" name="download_btn_text" value="<?php if(!empty($btn_text)){echo $btn_text;}else{echo 'Download';} ?>">
 					</p>
 					<p>
-						<input type="text" class="notice_file_link widefat" name="notice_file_link" value="<?php echo $notice_file_url; ?>" placeholder="Notice file link" style="margin-bottom: 1rem;">
+						<label for="notice_file_link">Upload or Put File URL</label>
+						<input type="text" id="notice_file_link" class="notice_file_link widefat" name="notice_file_link" value="<?php echo $notice_file_url; ?>" placeholder="Notice file link" style="margin-bottom: 1rem;">
 						<button class="notice_file button">Upload File</button>
 					</p>
 				<?php
@@ -117,8 +116,11 @@
 		}
 
 		function ins_notice_file_meta_save($post_id){
-			update_post_meta($post_id, '_download_btn_text_', $_POST['download_btn_text']);
-			update_post_meta($post_id, '_notice_file_link_', $_POST['notice_file_link']);			
+			$button_text = sanitize_text_field($_POST['download_btn_text']);
+			$file_url = esc_url($_POST['notice_file_link']);
+
+			update_post_meta($post_id, '_download_btn_text_', $button_text);
+			update_post_meta($post_id, '_notice_file_link_', $file_url);		
 		}
 
 		public function institute_notice_setup(){
@@ -178,9 +180,6 @@
 
 		}
 
-
 	}
 
 	$dinat_social_feed = new Institute_Notice();
-
-
